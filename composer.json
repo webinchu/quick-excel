@@ -1,0 +1,16 @@
+{
+    "name": "webin/quick-excel",
+    "description": "PHP快速生成excel文件",
+    "type": "l",
+    "require": {
+        "phpoffice/phpspreadsheet": "1.16.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "webin",
+            "email": "1014953068@qq.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
