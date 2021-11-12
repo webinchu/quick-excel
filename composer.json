@@ -1,5 +1,5 @@
 {
-    "name": "webin/quick-excel",
+    "name": "webing/quick-excel",
     "description": "PHP快速生成excel文件",
     "type": "l",
     "require": {

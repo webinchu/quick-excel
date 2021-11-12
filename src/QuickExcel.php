@@ -67,7 +67,7 @@ class QuickExcel
         return self::downloadExcel($spreadsheet, $filename, 'Xlsx', $filePath);
     }
 
-    public static function downloadExcel($newExcel, $filename, $format, $filePath = '')
+    private static function downloadExcel($newExcel, $filename, $format, $filePath = '')
     {
         $filename = $filename . '.' . strtolower($format);
         $objWriter = IOFactory::createWriter($newExcel, $format);
