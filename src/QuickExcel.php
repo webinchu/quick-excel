@@ -1,6 +1,6 @@
 <?php
 
-namespace webin;
+namespace webing;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
