@@ -3,7 +3,7 @@
     "description": "PHP快速生成excel文件",
     "type": "l",
     "require": {
-        "phpoffice/phpspreadsheet": "1.16.0"
+        "phpoffice/phpspreadsheet": "*"
     },
     "license": "MIT",
     "authors": [
