@@ -13,4 +13,5 @@ for ($i = 0; $i <= 5; $i++) {
 }
 $fileName = '测试';
 $excel = new QuickExcel();
-$excel::excelOut($excelHead, $data, $fileName);
+$savePath = './'; //保存在当前文件夹
+$fileName = $excel::excelOut($excelHead, $data, $fileName, './'); //返回fileName

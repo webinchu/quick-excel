@@ -19,9 +19,11 @@ class QuickExcel
      * @param array $head 表头
      * @param array|object $data 表数据(二维 数组/对象)
      * @param string $filename 文件名
+     * @param string $filePath 文件保存地址 空:直接下载
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return string 文件名
     */
-    public static function excelOut(array $head, $data, string $filename)
+    public static function excelOut(array $head, $data, string $filename, $filePath = '')
     {
         $fixed = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
@@ -62,40 +64,28 @@ class QuickExcel
                 $sheet->setCellValue($fixed[$k] . $number, $v . "\t");
             }
         }
-        self::downloadExcel($spreadsheet, $filename, 'Xlsx');
+        return self::downloadExcel($spreadsheet, $filename, 'Xlsx', $filePath);
     }
 
-    public static function downloadExcel($newExcel, $filename, $format)
+    public static function downloadExcel($newExcel, $filename, $format, $filePath = '')
     {
-        // $format只能为 Xlsx 或 Xls
-        if ($format == 'Xlsx') {
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        } elseif ($format == 'Xls') {
-            header('Content-Type: application/vnd.ms-excel');
-        }
-
-        header("Content-Disposition: attachment;filename="
-            . $filename . date('Ymd') . '.' . strtolower($format));
-        header('Cache-Control: max-age=0');
+        $filename = $filename . '.' . strtolower($format);
         $objWriter = IOFactory::createWriter($newExcel, $format);
-//        $dir = Yii::getAlias(Config::uploadDir()) . '/';
-//        $fileDir = $dir.'upload/';
-//        if (!file_exists($fileDir)) {
-//            mkdir($fileDir, 0775, true);
-//        }
-        $objWriter->save('php://output');
-
-        //通过php保存在本地的时候需要用到
-//        $objWriter->save($fileDir.$filename.'.xlsx');
-
-        //以下为需要用到IE时候设置
-        // If you're serving to IE 9, then the following may be needed
-        //header('Cache-Control: max-age=1');
-        // If you're serving to IE over SSL, then the following may be needed
-        //header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-        //header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
-        //header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-        //header('Pragma: public'); // HTTP/1.0
+        if ($filePath) {
+            $objWriter->save($filePath . $filename);
+            return $filename;
+        } else {
+            // $format只能为 Xlsx 或 Xls
+            if ($format == 'Xlsx') {
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            } elseif ($format == 'Xls') {
+                header('Content-Type: application/vnd.ms-excel');
+            }
+            header("Content-Disposition: attachment;filename="
+                . $filename);
+            header('Cache-Control: max-age=0');
+            $objWriter->save('php://output');
+        }
         exit;
     }
 }
