@@ -1,6 +1,6 @@
 # quick-excel
 
-PHP快速生成excel文档
+PHP快速生成excel文档(注:必须安装composer require phpoffice/phpspreadsheet)
 
 - 示例代码
 
